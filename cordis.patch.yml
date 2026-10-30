@@ -1,0 +1,10 @@
+# dsh-harness-zh bundle layer.
+#
+# The row loads this package's main entry (lib/index.js) as a plain Cordis
+# plugin. The plugin is host-only: DeepSeek Harness already ships a Chinese UI
+# locale (设置 → 通用 → 界面语言), so there is no ./client bundle here. What is
+# missing upstream — and what this plugin supplies — is the model-visible
+# prompt, which is composed from English literals inside plugin source.
+- insert:
+    - id: harness-zh
+      name: dsh-harness-zh

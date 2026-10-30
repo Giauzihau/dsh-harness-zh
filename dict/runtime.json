@@ -1,0 +1,67 @@
+{
+  "runtime:sandbox-read-only": {
+    "kind": "context",
+    "en": "Current DSH file policy: read-only. Any available operation enforced by the DSH file sandbox cannot modify files in the standing mode. Do not refuse a required modification from this policy alone: try an available tool normally and follow any denial and escalation guidance it returns.",
+    "zh": "当前 DSH 文件策略：read-only。DSH 文件沙箱所约束的可用操作无法在常驻模式下修改文件。不要仅凭这一策略就拒绝必需的修改：照常尝试可用的工具，并遵循其返回的任何拒绝与提权指引。"
+  },
+  "runtime:sandbox-danger-full-access": {
+    "kind": "context",
+    "en": "Current DSH file policy: danger-full-access. The DSH file sandbox does not restrict file modifications by available operations.",
+    "zh": "当前 DSH 文件策略：danger-full-access。DSH 文件沙箱不会限制可用操作对文件的修改。"
+  },
+  "runtime:approval-never": {
+    "kind": "context",
+    "en": "Approval prompts are disabled in this session: actions that require approval are rejected automatically — do not request sandbox escalation (do not set `sandbox_permissions`).",
+    "zh": "本会话已禁用审批提示：需要审批的操作会被自动拒绝——不要请求沙箱提权（不要设置 `sandbox_permissions`）。"
+  },
+  "runtime:harness-source": {
+    "kind": "context",
+    "template": true,
+    "en": "Current DeepSeek Harness implementation checkout: {{path}}.",
+    "zh": "当前 DeepSeek Harness 实现检出目录：{{path}}。"
+  },
+  "runtime:web-surface": {
+    "kind": "context",
+    "template": true,
+    "en": "Current DeepSeek Harness Web GUI URL: {{url}}.",
+    "zh": "当前 DeepSeek Harness Web GUI URL：{{url}}。"
+  },
+  "runtime:approval-changed": {
+    "kind": "const",
+    "template": true,
+    "en": "The approval policy changed from \"{{previous}}\" to \"{{policy}}\" (changed by the user).",
+    "zh": "审批策略已由 \"{{previous}}\" 变更为 \"{{policy}}\"（由用户更改）。"
+  },
+  "runtime:working-directory-changed": {
+    "kind": "const",
+    "template": true,
+    "en": "The working directory changed from {{previous}} to {{directory}}.",
+    "zh": "工作目录已由 {{previous}} 变更为 {{directory}}。"
+  },
+  "runtime:working-directory-unavailable": {
+    "kind": "const",
+    "template": true,
+    "en": "The working directory {{previous}} is unavailable. The working directory is now {{directory}}.",
+    "zh": "工作目录 {{previous}} 不可用。当前工作目录为 {{directory}}。"
+  },
+  "runtime:skill-catalog-changed": {
+    "kind": "const",
+    "en": "The available skill catalog changed. This complete catalog replaces every earlier available-skills list in this session:",
+    "zh": "可用的技能清单已变更。本完整清单会取代本会话中更早的所有可用技能列表："
+  },
+  "runtime:skill-catalog-empty": {
+    "kind": "const",
+    "en": "No skills are currently available through the `skill` tool. Do not use names from earlier skill catalogs.",
+    "zh": "当前没有可通过 `skill` 工具使用的技能。不要使用更早技能清单中的名称。"
+  },
+  "runtime:skill-catalog-replacement": {
+    "kind": "const",
+    "en": "Use only names in this replacement catalog. If the user names a listed skill, or the task clearly matches its description, call the `skill` tool with the exact name before acting.",
+    "zh": "只使用本次替换清单中的名称。如果用户点名了清单中的技能，或任务明显符合某个技能的描述，先在行动前用精确名称调用 `skill` 工具。"
+  },
+  "runtime:skill-catalog-direct": {
+    "kind": "const",
+    "en": "A user may still invoke a skill directly; its <skill_content> block then appears in this conversation. Follow it, and do not call the `skill` tool for it.",
+    "zh": "用户也可能直接调用某个技能；此时其 <skill_content> 内容块会出现在本对话中。请遵循它，不要为它调用 `skill` 工具。"
+  }
+}

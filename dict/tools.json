@@ -1,0 +1,182 @@
+{
+ "t:create_goal": {
+  "kind": "tool",
+  "en": "Create a persisted goal that keeps this session working across automatic continuation rounds. Use it when the direct human request is a long-running objective, even if the user did not say \"goal\"; not for single-turn work.",
+  "zh": "创建一个持久化目标，使本会话在自动续跑轮次中持续工作。当直接的人类请求是一项长期目标时使用它，即使用户没有说“目标”这个词；不用于单轮次的工作。"
+ },
+ "t:edit": {
+  "kind": "tool",
+  "en": "Edit an existing UTF-8 text file by replacing literal text.",
+  "zh": "通过替换字面文本编辑现有的 UTF-8 文本文件。"
+ },
+ "t:exit_plan_mode": {
+  "kind": "tool",
+  "en": "Use only in plan mode. Present your plan for the user's review and, on approval, leave plan mode. The user may approve (carry out the plan from your next step) or keep planning — their feedback comes back in the tool result; revise and present again.",
+  "zh": "仅在计划模式下使用。向用户展示计划以供审阅，并在获得批准后离开计划模式。用户可以批准（从你的下一步开始执行该计划），也可以继续规划——他们的反馈会随工具结果返回；修改后再次展示。"
+ },
+ "t:get_goal": {
+  "kind": "tool",
+  "en": "Read the current session goal, including the id and revision that update_goal requires.",
+  "zh": "读取当前会话的目标，包括 `update_goal` 所需的 id 与 revision。"
+ },
+ "t:glob": {
+  "kind": "tool",
+  "en": "Find files, not directories, whose paths match a glob pattern, including hidden and ignored files. Returns up to 100 paths in modification-time order; a larger result keeps the first paths and reports where the complete list was saved.",
+  "zh": "查找路径匹配 glob 模式的文件，而不是目录，包括隐藏文件和被忽略的文件。按修改时间顺序最多返回 100 个路径；结果更大时保留最前面的路径，并报告完整列表被保存到的位置。"
+ },
+ "t:grep": {
+  "kind": "tool",
+  "en": "Search file contents with a ripgrep regular expression. Returns matching lines with line numbers, grouped by file. Returns up to 250 matches; a larger result reports where the complete match list was saved.",
+  "zh": "用 ripgrep 正则表达式搜索文件内容。返回匹配的行及其行号，并按文件分组。最多返回 250 个匹配；结果更大时会报告完整匹配列表被保存到的位置。"
+ },
+ "t:interrupt_agent": {
+  "kind": "tool",
+  "en": "Ask a subagent to stop its current work. This call returns without waiting for it to stop. You can continue a local direct child's conversation later with send_message. External executions stop permanently and cannot receive follow-ups. Subagents it started will keep running.",
+  "zh": "要求子代理停止其当前工作。此调用返回时不会等待它停止。之后可以用 `send_message` 继续本地直接子代理的对话。外部执行会永久停止，无法接收后续消息。它启动的子代理会继续运行。"
+ },
+ "t:job_kill": {
+  "kind": "tool",
+  "en": "Request cancellation of a running background job.",
+  "zh": "请求取消一个正在运行的后台任务。"
+ },
+ "t:job_list": {
+  "kind": "tool",
+  "en": "List your background jobs (running and finished) with their ids, kinds, and statuses.",
+  "zh": "列出你的后台任务（运行中和已结束的），包括它们的 id、类型和状态。"
+ },
+ "t:job_output": {
+  "kind": "tool",
+  "en": "Read a background job: output since the previous read for stream jobs, or the result of a finished final-output job.",
+  "zh": "读取一个后台任务：对流式任务返回自上次读取以来的输出，对已结束的最终输出任务返回其结果。"
+ },
+ "t:list_agents": {
+  "kind": "tool",
+  "en": "List subagents you started, with their ids, labels, and status. running means it is working; inactive means it is not currently working. You will be notified when a subagent finishes; there is no need to keep checking its status. Use send_message to continue the conversation.",
+  "zh": "列出你启动的子代理，包括它们的 id、标签和状态。running 表示它正在工作；inactive 表示它当前没有工作。子代理结束时你会收到通知；无需反复检查其状态。用 `send_message` 继续对话。"
+ },
+ "t:pwsh": {
+  "kind": "tool",
+  "en": "Execute a PowerShell command (`pwsh -Command`) and return its stdout/stderr. Each call runs in a fresh pwsh process; pass `workdir` instead of using `cd`. Paths use native Windows form (`C:\\...`); read environment variables with `$env:NAME`. Managed `$env:DSH_*` variables expose current harness environment facts. Long output is truncated to its tail; the full output is saved to a file whose path is reported when available. On Windows a force-killed command settles as `[exit code: 1]` without a signal marker — treat it as an interruption, not a command failure. Provide `description` before `command` in the arguments. Before any delete or move, verify that the resolved absolute target path is the intended one; never run it against a computed path you have not checked. Do not assign to automatic variables such as `$HOME`; variable names are case-insensitive, so `$home` is the same read-only variable. Commands may run under a file sandbox; a blocked file operation is reported as `[sandbox: file access denied under <mode> mode]`, a policy denial: do not retry another way. Under the Windows sandbox, read-only pwsh runs in PowerShell ConstrainedLanguage mode, while workspace-write stays in FullLanguage unless host policy says otherwise. In read-only, prefer cmdlets and core types (`[string]`, `[datetime]`, `[regex]`, `[guid]`); .NET static calls (`[System.IO.*]::`, `[math]::`), `Add-Type`, COM objects, and reflection fail with \"only core types\" errors. `-f` formatting, property access, and core cmdlets work. In both confined modes, programs cannot open named pipes, so a command that captures another program's output through piped stdio (Node.js `child_process.spawn`/`exec` with the default `stdio: 'pipe'`) fails with EPERM, while `stdio: 'inherit'` and `stdio: 'ignore'` spawns work and PowerShell's own pipelines are unaffected. That EPERM is the documented boundary: do not retry the command another way — escalate the exact command once or restructure it to avoid capturing output.",
+  "zh": "执行一条 PowerShell 命令（`pwsh -Command`）并返回其 stdout/stderr。每次调用都在全新的 pwsh 进程中运行；传入 `workdir`，不要用 `cd`。路径使用原生 Windows 形式（`C:\\...`）；用 `$env:NAME` 读取环境变量。托管的 `$env:DSH_*` 变量暴露当前 harness 环境信息。过长的输出会被截断，只保留尾部；完整输出会保存到文件，并在可用时报告该文件路径。在 Windows 上，被强制终止的命令会以 `[exit code: 1]` 结束且不带信号标记——把它当作中断，而不是命令失败。在参数中先提供 `description`，再提供 `command`。在任何删除或移动之前，确认解析后的绝对目标路径就是预期的那一个；绝不要对未经检查的计算路径执行该操作。不要给 `$HOME` 这类自动变量赋值；变量名不区分大小写，因此 `$home` 就是同一个只读变量。命令可能在文件沙箱下运行；被阻止的文件操作会报告为 `[sandbox: file access denied under <mode> mode]`，这属于策略拒绝：不要换别的方式重试。在 Windows 沙箱下，只读 pwsh 运行在 PowerShell ConstrainedLanguage 模式，而 workspace-write 保持 FullLanguage，除非宿主策略另有规定。在只读模式下，优先使用 cmdlet 和核心类型（`[string]`、`[datetime]`、`[regex]`、`[guid]`）；.NET 静态调用（`[System.IO.*]::`、`[math]::`）、`Add-Type`、COM 对象和反射都会以“only core types”错误失败。`-f` 格式化、属性访问和核心 cmdlet 可用。在两种受限模式下，程序都无法打开命名管道，因此通过管道 stdio 捕获另一个程序输出的命令（Node.js `child_process.spawn`/`exec` 使用默认 `stdio: 'pipe'`）会以 EPERM 失败，而 `stdio: 'inherit'` 和 `stdio: 'ignore'` 的 spawn 可以工作，PowerShell 自身的管道也不受影响。该 EPERM 是已记录的边界：不要换别的方式重试该命令——将确切的命令升级一次，或重构它以避免捕获输出。"
+ },
+ "t:read": {
+  "kind": "tool",
+  "en": "Read a UTF-8 text file and return line-numbered content.",
+  "zh": "读取一个 UTF-8 文本文件并返回带行号的内容。"
+ },
+ "t:read_image": {
+  "kind": "tool",
+  "en": "Read a PNG/JPEG/WebP/GIF file and return the image itself. Large images are downscaled automatically; do not install image libraries or create thumbnails to inspect an image.",
+  "zh": "读取一个 PNG/JPEG/WebP/GIF 文件并返回图片本身。大图会自动降采样；不要安装图像库或创建缩略图来查看图片。"
+ },
+ "t:send_message": {
+  "kind": "tool",
+  "en": "Send a message to an agent. A working agent receives it at its next step; an idle agent starts a new turn with it. Returns delivery confirmation, not the agent's answer.",
+  "zh": "向某个智能体发送消息。正在工作的智能体会在下一个步骤收到它；空闲的智能体会因此开始新的轮次。返回投递确认，而不是该智能体的回答。"
+ },
+ "t:skill": {
+  "kind": "tool",
+  "en": "Load the full instructions for a skill. Call it before acting on a task that names or clearly matches a skill in the session skill catalog.",
+  "zh": "加载某个技能的完整指令。当任务指定了或明显匹配会话技能目录中的某个技能时，先调用它再采取行动。"
+ },
+ "t:subagent": {
+  "kind": "tool",
+  "en": "Delegate a self-contained task to a subagent (a separate agent that works in its own context) to offload focused, independent work — research, a scoped implementation, an analysis — so it does not consume this conversation's context. The subagent returns its result, not its intermediate steps. This tool starts an independently managed subagent and immediately returns its id. The runtime notifies you when it finishes. The child reports results with `send_message`; use `send_message` to steer it while running or continue its conversation after it finishes.",
+  "zh": "把一项自包含的任务委派给子代理（一个在自身上下文中工作的独立智能体），以卸载聚焦的独立工作——调研、范围明确的实现、分析——从而不消耗本对话的上下文。子代理返回其结果，而不是中间步骤。此工具启动一个独立管理的子代理并立即返回其 id。它结束时运行时会通知你。子代理用 `send_message` 报告结果；在它运行期间用 `send_message` 引导它，或在它结束后继续其对话。"
+ },
+ "t:subagent_fork": {
+  "kind": "tool",
+  "en": "Delegate a task to a subagent that inherits this conversation: a child agent seeded with all completed turns so far (it does not see the current in-flight turn). Use this when the subtask builds on this conversation's context — a follow-up analysis, a review, a continuation — without consuming this conversation's context for the work itself. You receive its result, not its intermediate steps. This tool starts an independently managed subagent and immediately returns its id. The runtime notifies you when it finishes. The child reports results with `send_message`; use `send_message` to steer it while running or continue its conversation after it finishes.",
+  "zh": "把一项任务委派给继承本对话的子代理：一个以目前所有已完成轮次为初始内容的子智能体（它看不到当前进行中的轮次）。当子任务建立在本对话的上下文之上时使用——后续分析、评审、续写——同时不为这项工作本身消耗本对话的上下文。你收到的是它的结果，而不是中间步骤。此工具启动一个独立管理的子代理并立即返回其 id。它结束时运行时会通知你。子代理用 `send_message` 报告结果；在它运行期间用 `send_message` 引导它，或在它结束后继续其对话。"
+ },
+ "t:todo_write": {
+  "kind": "tool",
+  "en": "Record and update a task list to plan multi-step work and show progress; skip it for trivial single-step tasks. Add one todo per concrete step before you start. While work remains, keep the todos being worked on `in_progress`, several only when work runs in parallel. Mark each todo `completed` as soon as it is done.",
+  "zh": "记录并更新任务列表，用于规划多步骤工作并展示进度；对琐碎的单步骤任务跳过它。在开始之前，为每个具体步骤添加一条待办事项。只要还有工作未完成，就把正在推进的待办事项保持为 `in_progress`，仅当多项工作并行推进时才可同时有多个。每个待办事项一旦完成就立即标记为 `completed`。"
+ },
+ "t:update_goal": {
+  "kind": "tool",
+  "en": "Update the current goal.",
+  "zh": "更新当前目标。"
+ },
+ "t:web_fetch": {
+  "kind": "tool",
+  "en": "Fetch the content of a specific HTTP(S) URL and return it decoded to text.",
+  "zh": "获取指定 HTTP(S) URL 的内容，并将其解码为文本返回。"
+ },
+ "t:web_search": {
+  "kind": "tool",
+  "en": "Search the web for current information. Returns an optional summary answer and a list of source URLs.",
+  "zh": "在网上搜索当前信息。返回可选的摘要答案与来源 URL 列表。"
+ },
+ "t:workflow": {
+  "kind": "tool",
+  "en": "Run a JavaScript workflow script that orchestrates subagents at scale. Use this for work that fans out across many independent pieces — an audit over many files, a migration, multi-angle research, adversarial verification of findings — where you write the orchestration as a script instead of delegating turn by turn.\n\nScript-body hooks:\n- `agent(prompt, opts?): Promise<any>` — run one subagent to completion. Without `opts.schema` it resolves to the child's final text; with `opts.schema` (an object-rooted JSON Schema using ONLY type/properties/required/additionalProperties/items/enum/const/oneOf) it resolves to the validated object. Resolves `null` when the child fails (filter with `.filter(Boolean)`). Other opts: `label` (display), `phase` (progress group), and independent `provider`/`model` LLM target overrides.\n- `pipeline(items, ...stages): Promise<any[]>` — run each item through the stages independently with NO barrier between stages (prefer this for multi-stage work). Each stage receives `(prev, item, index)`. A stage throw drops that ITEM to `null` and skips its remaining stages.\n- `parallel(thunks): Promise<any[]>` — run zero-argument functions concurrently and await ALL of them (a barrier; use only when a stage genuinely needs every prior result together). A throwing thunk resolves to `null`.\n- `phase(title)` — start a progress phase; `log(message)` — narrate progress; `args` — the tool call's `args` input, verbatim.\n\nMisused hooks (bad arguments, unknown options, unsupported schemas, tripped caps) end the whole script instead of producing `null`. The script has no filesystem, network, timer, or Node.js APIs; the agents do the work.",
+  "zh": "运行一个 JavaScript 工作流脚本，用于大规模编排子代理。当工作分散到许多相互独立的部分时使用它——例如对大量文件做审计、迁移、多角度调研、对发现做对抗性验证——这类工作把编排写成脚本，而不是逐轮委派。\n\n脚本体内的钩子：\n- `agent(prompt, opts?): Promise<any>` —— 运行一个子代理直至完成。未提供 `opts.schema` 时，解析为子代理的最终文本；提供 `opts.schema`（一个以 object 为根的 JSON Schema，仅可使用 type/properties/required/additionalProperties/items/enum/const/oneOf）时，解析为经过校验的对象。子代理失败时解析为 `null`（用 `.filter(Boolean)` 过滤掉）。其他选项：`label`（展示名）、`phase`（进度分组），以及独立的 `provider`/`model` LLM 目标覆盖。\n- `pipeline(items, ...stages): Promise<any[]>` —— 让每个条目独立地依次经过各阶段，阶段之间没有屏障（多阶段工作优先用它）。每个阶段接收 `(prev, item, index)`。某个阶段抛出异常会使该条目变为 `null`，并跳过它剩余的阶段。\n- `parallel(thunks): Promise<any[]>` —— 并发运行零参数函数并等待全部完成（这是一个屏障；仅当某个阶段确实需要全部先前结果放在一起时才用）。抛异常的 thunk 会解析为 `null`。\n- `phase(title)` —— 开启一个进度阶段；`log(message)` —— 叙述进度；`args` —— 本次工具调用的 `args` 输入，原样保留。\n\n钩子用法错误（参数非法、选项未知、schema 不受支持、触及上限）会终止整个脚本，而不是产生 `null`。脚本没有文件系统、网络、定时器或 Node.js API；具体工作由各个子代理完成。"
+ },
+ "t:working_directory": {
+  "kind": "tool",
+  "en": "Read the current working directory, or change it with cd. Relative paths use the current directory. Existing shells and running processes keep their own directories.",
+  "zh": "读取当前工作目录，或用 cd 改变它。相对路径基于当前目录。已存在的 shell 与正在运行的进程保留它们自己的目录。"
+ },
+ "t:write": {
+  "kind": "tool",
+  "en": "Create or fully replace a UTF-8 text file.",
+  "zh": "创建或完整替换一个 UTF-8 文本文件。"
+ },
+ "t:ask_user_question": {
+  "kind": "tool",
+  "en": "Ask the user a concise question when you need confirmation, a choice, or missing information before proceeding.",
+  "zh": "当你需要确认、做选择或缺少信息才能继续时，向用户提出一个简洁的问题。"
+ },
+ "t:create_skill": {
+  "kind": "tool",
+  "en": "Create a new local DSH skill in DSH_HOME/skills. Use only when the user explicitly asks to create or save a reusable skill.",
+  "zh": "在 DSH_HOME/skills 中创建一个新的本地 DSH 技能。仅在用户明确要求创建或保存可复用技能时使用。"
+ },
+ "t:list_mcp_resource_templates": {
+  "kind": "tool",
+  "en": "List parameterized resource URI templates from an MCP server.",
+  "zh": "列出 MCP 服务器提供的带参数资源 URI 模板。"
+ },
+ "t:list_mcp_resources": {
+  "kind": "tool",
+  "en": "List resources available from an MCP server.",
+  "zh": "列出 MCP 服务器提供的可用资源。"
+ },
+ "t:load_workspace_dependencies": {
+  "kind": "tool",
+  "en": "Get absolute paths to bundled Python and library directories, plus bundled Python distribution versions. Node.js and pnpm paths are included when the payload provides them. Python includes numpy, pandas, python-docx, python-pptx, openpyxl, Pillow, lxml, and XlsxWriter. Use these libraries for Office files unless the user or workspace instructions select another environment. When Node.js and pnpm paths are returned, run pnpm with that Node executable and pnpm script path. This does not change PATH or package-manager settings.",
+  "zh": "获取随附的 Python 与库目录的绝对路径，以及随附 Python 发行版本号。当载荷提供时，也会包含 Node.js 与 pnpm 的路径。Python 包含 numpy、pandas、python-docx、python-pptx、openpyxl、Pillow、lxml 和 XlsxWriter。处理 Office 文件时使用这些库，除非用户或工作区指令指定了其他环境。当返回 Node.js 与 pnpm 路径时，用该 Node 可执行文件与 pnpm 脚本路径运行 pnpm。这不会改变 PATH 或包管理器设置。"
+ },
+ "t:present": {
+  "kind": "tool",
+  "en": "Declare existing files as final deliverables for the user. Use it when the user needs a separate file, especially Office documents, spreadsheets, and slide decks; prefer your final response when that suffices. The user opens the current files; their contents are not copied.",
+  "zh": "将已有文件声明为交付给用户的最终交付物。当用户需要一个单独的文件时使用它，尤其是 Office 文档、电子表格和幻灯片；若最终回复本身已足够，优先用最终回复。用户打开的是当前这些文件；其内容不会被复制。"
+ },
+ "t:read_mcp_resource": {
+  "kind": "tool",
+  "en": "Read an MCP resource by URI from the named server. Use a listed URI or an expanded resource template.",
+  "zh": "从指定名称的服务器按 URI 读取一个 MCP 资源。使用已列出的 URI 或展开后的资源模板。"
+ },
+ "t:schedule_create": {
+  "kind": "tool",
+  "en": "Create a reminder in the current session that delivers prompt when it becomes due. Supply exactly one timing parameter: after_seconds, at, every_seconds, daily, weekly, or cron. Local times that do not exist in the zone are skipped; repeated local times fire once, at the earlier instant. After downtime, a recurring reminder delivers only its latest missed occurrence. Delivery can repeat after a crash.",
+  "zh": "在当前会话中创建一个提醒，到期时投递 prompt。必须提供恰好一个时间参数：after_seconds、at、every_seconds、daily、weekly 或 cron。时区中不存在的本地时间会被跳过；重复出现的本地时间只在较早的那个时刻触发一次。停机之后，重复提醒只投递其最近一次错过的触发。崩溃之后投递可能重复。"
+ },
+ "t:schedule_delete": {
+  "kind": "tool",
+  "en": "Delete a reminder in the current session, active or inactive. Deletion does not retract a reminder message that is already queued.",
+  "zh": "删除当前会话中的一个提醒，无论其处于活动还是非活动状态。删除不会撤回已经排队的提醒消息。"
+ },
+ "t:schedule_list": {
+  "kind": "tool",
+  "en": "List the active reminders in the current session.",
+  "zh": "列出当前会话中处于活动状态的提醒。"
+ },
+ "t:schedule_update": {
+  "kind": "tool",
+  "en": "Change a reminder in place, keeping its id. Supply a new title, prompt, or at most one timing parameter; omitted fields keep their stored values. To change a relative delay, create a new reminder.",
+  "zh": "就地修改一个提醒，并保留其 id。可提供新的 title、prompt，或至多一个时间参数；省略的字段保留其已存储的值。要改变相对延迟，请新建一个提醒。"
+ }
+}

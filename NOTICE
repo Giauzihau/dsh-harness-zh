@@ -1,0 +1,32 @@
+dsh-harness-zh
+==============
+
+MIT License. See LICENSE.
+
+This package is derived from and interoperates with the following projects:
+
+1. DeepSeek Harness (DSH)
+   The English source strings in dict/*.json are the model-visible prompt text
+   shipped inside DeepSeek Harness 0.2.1-rc.5 (system prompt sections, runtime
+   context templates, tool and parameter descriptions, Cordis API catalog).
+   Those strings remain the property of their authors. The Simplified Chinese
+   translations and the plugin code in this repository are original work
+   released under the MIT License. No proprietary DSH source code is bundled:
+   the dictionaries contain prompt text and translations only.
+
+2. dsh-harness-zh-cn (https://github.com/zjl1989-li/dsh-harness-zh-cn)
+   MIT License, Copyright (c) 2026 dsh-harness-zh contributors.
+   The file dict/cordis-api.json is a derivative of that project's Cordis API
+   dictionary: 813 of its 1241 entries were re-verified against the
+   0.2.1-rc.5 api-catalog.js, kept as-is or corrected, and 428 stale entries
+   were dropped. Its translations are used under the MIT License above.
+   This project is an independent rewrite for DSH 0.2.1-rc.5 and is not
+   affiliated with or endorsed by that project.
+
+3. Cordis (https://github.com/cordiverse/cordis)
+   The API catalog text translated in dict/cordis-api.json describes the
+   Cordis service API exposed by DeepSeek Harness.
+
+Trademarks (DeepSeek, DeepSeek Harness, Cordis, PowerShell, MCP and others)
+belong to their respective owners and are used only to identify the systems
+this plugin translates.

@@ -1,0 +1,27 @@
+{
+  "m:runtime-context-header": {
+    "kind": "const",
+    "en": "Current runtime context. This snapshot supersedes earlier runtime-context snapshots.",
+    "zh": "当前运行时上下文。本快照会取代更早的运行时上下文快照。"
+  },
+  "m:runtime-context-cleared": {
+    "kind": "const",
+    "en": "Current runtime context: none. Earlier runtime-context snapshots no longer apply.",
+    "zh": "当前运行时上下文：无。更早的运行时上下文快照不再适用。"
+  },
+  "m:reminder-skill-catalog": {
+    "kind": "const",
+    "en": "A skill is a reusable set of task-specific instructions. The following skills are available in this session:",
+    "zh": "技能是一组可复用的、针对具体任务的指令。本会话可用的技能如下："
+  },
+  "m:reminder-skill-usage": {
+    "kind": "const",
+    "en": "If the user names a skill, or the task clearly matches a skill's description, call the `skill` tool with the exact skill name before taking task actions. Load all applicable skills, then follow their full instructions. This catalog contains summaries only; do not infer or follow a skill's instructions until it has been loaded.",
+    "zh": "如果用户点名了某个技能，或任务明显符合某个技能的描述，请在开始执行任务动作之前，用技能的准确名称调用 `skill` 工具。加载所有适用的技能，然后完整遵循其指令。本清单只包含摘要；在技能被加载之前，不要推测或遵循其中的指令。"
+  },
+  "m:reminder-skill-direct": {
+    "kind": "const",
+    "en": "A user may also invoke a skill directly; its <skill_content> block then appears in this conversation. Follow it, and do not call the `skill` tool again for that skill.",
+    "zh": "用户也可能直接调用某个技能；此时该技能的 <skill_content> 内容块会出现在本对话中。请遵循它，不要为同一个技能再次调用 `skill` 工具。"
+  }
+}

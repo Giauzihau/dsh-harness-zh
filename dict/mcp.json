@@ -1,0 +1,19 @@
+{
+  "mcp:resource-servers-heading": {
+    "kind": "const",
+    "en": "## MCP resource servers",
+    "zh": "## MCP 资源服务器"
+  },
+  "mcp:usage": {
+    "kind": "section",
+    "template": true,
+    "en": "Use list_mcp_resources, list_mcp_resource_templates, or read_mcp_resource with one of these names as the server argument: {{servers}}.",
+    "zh": "把 list_mcp_resources、list_mcp_resource_templates 或 read_mcp_resource 与下列名称之一配合使用，作为 server 参数：{{servers}}。"
+  },
+  "mcp:server-heading": {
+    "kind": "const",
+    "template": true,
+    "en": "### MCP server: {{name}}",
+    "zh": "### MCP 服务器：{{name}}"
+  }
+}

@@ -1,0 +1,492 @@
+{
+ "p:create_goal.objective": {
+  "kind": "param",
+  "en": "The concrete completion objective inferred from the direct human request.",
+  "zh": "从直接的人类请求推断出的具体完成目标。"
+ },
+ "p:create_goal.max_goal_rounds": {
+  "kind": "param",
+  "en": "Optional positive safe-integer limit on automatic continuation rounds.",
+  "zh": "自动续接轮次数的可选上限，须为正安全整数。"
+ },
+ "p:edit.file_path": {
+  "kind": "param",
+  "en": "Path to edit, resolved by the filesystem backend. Provide `file_path` before `old_string` and `new_string` in the arguments.",
+  "zh": "待编辑的路径，由文件系统后端解析。在参数中先提供 `file_path`，再提供 `old_string` 和 `new_string`。"
+ },
+ "p:edit.old_string": {
+  "kind": "param",
+  "en": "Literal text to replace.",
+  "zh": "要替换的字面文本。"
+ },
+ "p:edit.new_string": {
+  "kind": "param",
+  "en": "Literal replacement text. Use an empty string to delete the match.",
+  "zh": "替换用的字面文本。用空字符串删除匹配项。"
+ },
+ "p:edit.replace_all": {
+  "kind": "param",
+  "en": "Replace all matches. Defaults to false; when false, old_string must appear exactly once.",
+  "zh": "替换所有匹配项。默认为 false；为 false 时，old_string 必须恰好出现一次。"
+ },
+ "p:edit.sandbox_permissions": {
+  "kind": "param",
+  "en": "The narrowest wider sandbox mode for a one-shot retry of the exact operation the sandbox just denied; the retry asks the user for approval.",
+  "zh": "针对沙箱刚刚拒绝的那次操作做一次性重试所用的、最窄的更宽沙箱模式；重试会请求用户审批。"
+ },
+ "p:edit.justification": {
+  "kind": "param",
+  "en": "Required with sandbox_permissions: one sentence for the user explaining why this exact file operation needs the wider access. Use the language of the user’s current request.",
+  "zh": "与 sandbox_permissions 一起使用时必填：用一句话向用户说明为什么这次文件操作需要更宽的访问权限。使用用户当前请求的语言。"
+ },
+ "p:exit_plan_mode.plan": {
+  "kind": "param",
+  "en": "The complete plan, as markdown, starting with a # heading that names it.",
+  "zh": "完整的计划，Markdown 格式，以命名该计划的 # 标题开头。"
+ },
+ "p:glob.pattern": {
+  "kind": "param",
+  "en": "Glob pattern to match file paths against (e.g. \"**/*.ts\", \"src/**/*.test.js\"). A pattern with no \"/\" matches the basename at any depth, so \"*\" and \"*.ts\" both search the whole tree; include a separator to anchor the depth.",
+  "zh": "用于匹配文件路径的 glob 模式（如 \"**/*.ts\"、\"src/**/*.test.js\"）。不含 \"/\" 的模式会在任意深度匹配文件名，因此 \"*\" 和 \"*.ts\" 都会搜索整棵树；加入分隔符可锚定深度。"
+ },
+ "p:glob.path": {
+  "kind": "param",
+  "en": "Directory to search in. Defaults to the session workspace; a relative path resolves against it.",
+  "zh": "要搜索的目录。默认为会话工作区；相对路径相对于它解析。"
+ },
+ "p:grep.pattern": {
+  "kind": "param",
+  "en": "Regular expression to search for (ripgrep syntax).",
+  "zh": "要搜索的正则表达式（ripgrep 语法）。"
+ },
+ "p:grep.path": {
+  "kind": "param",
+  "en": "File or directory to search. Defaults to the session workspace; a relative path resolves against it.",
+  "zh": "要搜索的文件或目录。默认为会话工作区；相对路径相对于它解析。"
+ },
+ "p:grep.include": {
+  "kind": "param",
+  "en": "One glob filter for which files to search (e.g. \"*.ts\", \"*.{js,jsx}\"). Not a list; negation is not supported.",
+  "zh": "用于限定搜索哪些文件的单个 glob 过滤器（如 \"*.ts\"、\"*.{js,jsx}\"）。不是列表；不支持取反。"
+ },
+ "p:interrupt_agent.agent_id": {
+  "kind": "param",
+  "en": "The id of an agent created under you: your direct child or a deeper descendant.",
+  "zh": "在你之下创建的智能体的 id：你的直接子代理或更深层的后代。"
+ },
+ "p:job_kill.job_id": {
+  "kind": "param",
+  "en": "Job id returned by the tool that started the background work.",
+  "zh": "启动该后台任务的工具返回的任务 id。"
+ },
+ "p:job_kill.reason": {
+  "kind": "param",
+  "en": "Optional short reason, recorded in the log and forwarded to the job.",
+  "zh": "可选的简短原因，会记录到日志并转发给该任务。"
+ },
+ "p:job_output.wait": {
+  "kind": "param",
+  "en": "Block until the job finishes or the timeout expires; a timed-out wait leaves the job running. Defaults to false.",
+  "zh": "阻塞等待，直到任务结束或超时；等待超时后任务仍在运行。默认为 false。"
+ },
+ "p:job_output.timeout_ms": {
+  "kind": "param",
+  "en": "Max wait in milliseconds with wait: true. Defaults to and is capped by configuration.",
+  "zh": "在 wait: true 时的最长等待毫秒数。默认值及上限由配置决定。"
+ },
+ "p:list_agents.scope": {
+  "kind": "param",
+  "en": "children (default) lists direct children, which accept send_message in any status. descendants lists the whole tree below you with each entry's parent session id and depth; entries deeper than 1 accept only interrupt_agent.",
+  "zh": "children（默认）列出直接子代理，它们在任何状态下都接受 send_message。descendants 列出你之下的整棵树，并给出每个条目的父会话 id 和深度；深度大于 1 的条目只接受 interrupt_agent。"
+ },
+ "p:pwsh.description": {
+  "kind": "param",
+  "en": "Clear, concise description of what this command does in active voice, 5-10 words (shown in the UI). Examples: \"ls\" → \"List files in current directory\"; \"git status\" → \"Show working tree status\"; \"Get-Process\" → \"List running processes\".",
+  "zh": "用主动语态清楚简洁地描述该命令做什么，5-10 个词（显示在 UI 中）。示例：\"ls\" → \"列出当前目录中的文件\"；\"git status\" → \"显示工作树状态\"；\"Get-Process\" → \"列出运行中的进程\"。"
+ },
+ "p:pwsh.command": {
+  "kind": "param",
+  "en": "The PowerShell command to execute.",
+  "zh": "要执行的 PowerShell 命令。"
+ },
+ "p:pwsh.timeoutMs": {
+  "kind": "param",
+  "en": "Timeout in milliseconds. The executor applies its configured default and cap; on expiry the command moves to the background as a job instead of being killed.",
+  "zh": "超时时间，单位毫秒。执行器会应用其配置的默认值和上限；超时后命令会转入后台成为后台任务，而不是被终止。"
+ },
+ "p:pwsh.workdir": {
+  "kind": "param",
+  "en": "Working directory for this command. Defaults to the session workspace; a relative path is resolved against it.",
+  "zh": "该命令的工作目录。默认为会话工作区；相对路径相对于它解析。"
+ },
+ "p:pwsh.run_in_background": {
+  "kind": "param",
+  "en": "Run in the background and return a job id immediately (collect with job_output, stop with job_kill). No timeout applies.",
+  "zh": "在后台运行并立即返回任务 id（用 job_output 收集，用 job_kill 停止）。不适用超时。"
+ },
+ "p:pwsh.sandbox_permissions": {
+  "kind": "param",
+  "en": "The narrowest wider sandbox mode for a one-shot retry of the exact command the sandbox just denied; the retry asks the user for approval.",
+  "zh": "针对沙箱刚刚拒绝的那条命令做一次性重试所用的、最窄的更宽沙箱模式；重试会请求用户审批。"
+ },
+ "p:pwsh.justification": {
+  "kind": "param",
+  "en": "Required with sandbox_permissions: one sentence for the user explaining why this exact command needs the wider access. Use the language of the user’s current request.",
+  "zh": "与 sandbox_permissions 一起使用时必填：用一句话向用户说明为什么这条命令需要更宽的访问权限。使用用户当前请求的语言。"
+ },
+ "p:read.file_path": {
+  "kind": "param",
+  "en": "Path to read, resolved by the filesystem backend.",
+  "zh": "要读取的路径，由文件系统后端解析。"
+ },
+ "p:read.offset": {
+  "kind": "param",
+  "en": "1-based first line to return. Defaults to 1.",
+  "zh": "要返回的首行，从 1 开始计数。默认为 1。"
+ },
+ "p:read.limit": {
+  "kind": "param",
+  "en": "Maximum number of lines to return. Defaults to 2000.",
+  "zh": "要返回的最大行数。默认为 2000。"
+ },
+ "p:read_image.file_path": {
+  "kind": "param",
+  "en": "Path to the image file, resolved by the filesystem backend.",
+  "zh": "图像文件的路径，由文件系统后端解析。"
+ },
+ "p:send_message.agent_id": {
+  "kind": "param",
+  "en": "The agent id of your direct continuable child, or your direct parent when you are a resident continuable child.",
+  "zh": "你的直接可继续子代理的智能体 id；当你是常驻可继续子代理时，则为你的直接父代理。"
+ },
+ "p:send_message.message": {
+  "kind": "param",
+  "en": "The message to deliver to the agent.",
+  "zh": "要投递给该智能体的消息。"
+ },
+ "p:skill.name": {
+  "kind": "param",
+  "en": "The exact skill name from the available skills list.",
+  "zh": "来自可用技能列表的精确技能名。"
+ },
+ "p:subagent.cwd": {
+  "kind": "param",
+  "en": "Initial child working directory. Relative paths use your current directory; omitted inherits it. Later directory changes in either agent are independent.",
+  "zh": "子代理的初始工作目录。相对路径基于你的当前目录；省略则继承当前目录。此后两个智能体各自的目录变更相互独立。"
+ },
+ "p:subagent.description": {
+  "kind": "param",
+  "en": "A short (3-5 word) description of the delegated task, for display.",
+  "zh": "对所委派任务的简短描述（3-5 个词），用于显示。"
+ },
+ "p:subagent.prompt": {
+  "kind": "param",
+  "en": "The complete, self-contained task for the subagent. It does not share this conversation's context, so include everything it needs.",
+  "zh": "交给子代理的完整、自包含任务。它不共享本对话的上下文，因此必须包含它所需的全部信息。"
+ },
+ "p:subagent_fork.prompt": {
+  "kind": "param",
+  "en": "The task for the subagent. It already sees this conversation's completed turns, so build on them freely and state only what is new.",
+  "zh": "交给子代理的任务。它已经能看到本对话中已完成的轮次，因此可以自由地在此基础上展开，只需说明新增的内容。"
+ },
+ "p:todo_write.todos": {
+  "kind": "param",
+  "en": "The COMPLETE task list, replacing any previous list.",
+  "zh": "完整的任务列表，会替换此前的任何列表。"
+ },
+ "p:todo_write.todos[].content": {
+  "kind": "param",
+  "en": "What the task is — a short imperative line.",
+  "zh": "任务是什么——一句简短的祈使句。"
+ },
+ "p:todo_write.todos[].status": {
+  "kind": "param",
+  "en": "pending (not started) | in_progress (now) | completed (done).",
+  "zh": "pending（未开始）| in_progress（进行中）| completed（已完成）。"
+ },
+ "p:update_goal.goal_id": {
+  "kind": "param",
+  "en": "Exact id returned by get_goal.",
+  "zh": "由 get_goal 返回的精确 id。"
+ },
+ "p:update_goal.revision": {
+  "kind": "param",
+  "en": "Exact positive revision returned by get_goal.",
+  "zh": "由 get_goal 返回的精确修订号，必须为正数。"
+ },
+ "p:update_goal.action": {
+  "kind": "param",
+  "en": "edit, pause, and resume require a direct top-level human request. complete and blocked are also allowed during an automatic continuation of this goal; blocked is rejected before the configured minimum round count.",
+  "zh": "edit、pause 和 resume 需要来自顶层用户的直接请求。在本目标自动续跑期间也允许 complete 和 blocked；在达到配置的最小轮次数之前，blocked 会被拒绝。"
+ },
+ "p:update_goal.objective": {
+  "kind": "param",
+  "en": "Replacement objective; valid only with action edit.",
+  "zh": "替换用的目标；仅在 action 为 edit 时有效。"
+ },
+ "p:update_goal.max_goal_rounds": {
+  "kind": "param",
+  "en": "Replacement cap; valid only with action edit.",
+  "zh": "替换用的上限；仅在 action 为 edit 时有效。"
+ },
+ "p:update_goal.blocked_reason": {
+  "kind": "param",
+  "en": "Required only with action blocked: the concrete condition that persisted across rounds and blocks progress.",
+  "zh": "仅在 action 为 blocked 时必填：跨多个轮次持续存在、阻碍进展的具体条件。"
+ },
+ "p:web_fetch.url": {
+  "kind": "param",
+  "en": "The HTTP(S) URL to fetch.",
+  "zh": "要抓取的 HTTP(S) URL。"
+ },
+ "p:web_search.queries": {
+  "kind": "param",
+  "en": "1–4 search queries; their results are merged.",
+  "zh": "1–4 个搜索查询；其结果会被合并。"
+ },
+ "p:workflow.script": {
+  "kind": "param",
+  "en": "The plain JavaScript body, not TypeScript and without an `export const meta` statement; top-level await is allowed. End with `return <value>`; the JSON-serializable value is this tool's result.",
+  "zh": "纯 JavaScript 函数体，不是 TypeScript，且不含 `export const meta` 语句；允许顶层 await。以 `return <value>` 结尾；该可 JSON 序列化的值即为本工具的结果。"
+ },
+ "p:workflow.meta": {
+  "kind": "param",
+  "en": "The workflow identity as plain JSON, not code.",
+  "zh": "以纯 JSON 表示的工作流标识，不是代码。"
+ },
+ "p:workflow.meta.name": {
+  "kind": "param",
+  "en": "Short kebab-case workflow name.",
+  "zh": "简短的工作流名称，采用 kebab-case。"
+ },
+ "p:workflow.meta.description": {
+  "kind": "param",
+  "en": "One-line description of what the workflow does.",
+  "zh": "一行说明该工作流做什么。"
+ },
+ "p:workflow.meta.whenToUse": {
+  "kind": "param",
+  "en": "Optional guidance on when this workflow applies.",
+  "zh": "可选：关于何时适用该工作流的指引。"
+ },
+ "p:workflow.meta.phases": {
+  "kind": "param",
+  "en": "Optional phase declarations matched by phase() calls.",
+  "zh": "可选的阶段声明，由 phase() 调用匹配。"
+ },
+ "p:workflow.meta.phases[].title": {
+  "kind": "param",
+  "en": "The phase title phase() calls match by exact string.",
+  "zh": "阶段标题，phase() 调用按精确字符串匹配它。"
+ },
+ "p:workflow.meta.phases[].detail": {
+  "kind": "param",
+  "en": "Optional one-line description of the phase.",
+  "zh": "可选的阶段一行描述。"
+ },
+ "p:workflow.meta.phases[].provider": {
+  "kind": "param",
+  "en": "Optional provider override this phase is expected to use.",
+  "zh": "可选：该阶段预期使用的提供方覆盖项。"
+ },
+ "p:workflow.meta.phases[].model": {
+  "kind": "param",
+  "en": "Optional model override this phase is expected to use.",
+  "zh": "可选：该阶段预期使用的模型覆盖项。"
+ },
+ "p:workflow.args": {
+  "kind": "param",
+  "en": "Optional JSON input exposed to the script as the `args` global (wrap a bare list as a field, e.g. {\"files\": [...]}).",
+  "zh": "可选的 JSON 输入，以 `args` 全局变量暴露给脚本（裸列表需包成一个字段，例如 {\"files\": [...]}）。"
+ },
+ "p:workflow.run_in_background": {
+  "kind": "param",
+  "en": "Run as a background job: return a job id immediately instead of waiting; the return value arrives with the completion notice.",
+  "zh": "作为后台任务运行：立即返回任务 id 而不等待；返回值随完成通知一并送达。"
+ },
+ "p:working_directory.cd": {
+  "kind": "param",
+  "en": "Existing directory to enter. Omit to read the current directory.",
+  "zh": "要进入的已存在目录。省略则读取当前目录。"
+ },
+ "p:write.file_path": {
+  "kind": "param",
+  "en": "Path to write, resolved by the filesystem backend. Provide `file_path` before `content` in the arguments.",
+  "zh": "要写入的路径，由文件系统后端解析。在参数中先提供 `file_path`，再提供 `content`。"
+ },
+ "p:write.content": {
+  "kind": "param",
+  "en": "Full UTF-8 text content to write.",
+  "zh": "要写入的完整 UTF-8 文本内容。"
+ },
+ "p:ask_user_question.questions": {
+  "kind": "param",
+  "en": "Questions to ask the user before continuing.",
+  "zh": "在继续之前向用户提出的问题。"
+ },
+ "p:ask_user_question.questions[].id": {
+  "kind": "param",
+  "en": "Stable id for this question; echoed in the answer.",
+  "zh": "该问题的稳定 id；会在回答中原样回传。"
+ },
+ "p:ask_user_question.questions[].question": {
+  "kind": "param",
+  "en": "The specific question to ask the user.",
+  "zh": "要向用户提问的具体问题。"
+ },
+ "p:ask_user_question.questions[].header": {
+  "kind": "param",
+  "en": "Optional short heading for the question, such as \"Confirm\" or \"Choose Mode\".",
+  "zh": "可选的简短问题标题，例如 \"Confirm\" 或 \"Choose Mode\"。"
+ },
+ "p:ask_user_question.questions[].options": {
+  "kind": "param",
+  "en": "Optional choices to show the user. If you recommend one, put it first and append \"(Recommended)\" to that label.",
+  "zh": "可选，向用户展示的选项。如果你要推荐其中一项，把它放在第一位，并在该标签后追加 \"(Recommended)\"。"
+ },
+ "p:ask_user_question.questions[].options[].label": {
+  "kind": "param",
+  "en": "Short user-facing option label.",
+  "zh": "面向用户的简短选项标签。"
+ },
+ "p:ask_user_question.questions[].options[].description": {
+  "kind": "param",
+  "en": "One sentence explaining the tradeoff or impact.",
+  "zh": "用一句话说明取舍或影响。"
+ },
+ "p:ask_user_question.questions[].multi_select": {
+  "kind": "param",
+  "en": "Whether the user may select more than one option. Defaults to false.",
+  "zh": "用户是否可选中多个选项。默认为 false。"
+ },
+ "p:create_skill.name": {
+  "kind": "param",
+  "en": "Skill name; it will be normalized to kebab-case.",
+  "zh": "技能名称；它会被规范化为 kebab-case。"
+ },
+ "p:create_skill.description": {
+  "kind": "param",
+  "en": "A concise routing description for when to use the skill.",
+  "zh": "简洁的路由描述，说明何时使用该技能。"
+ },
+ "p:create_skill.body": {
+  "kind": "param",
+  "en": "Markdown instructions that form the skill body.",
+  "zh": "构成技能主体的 Markdown 指令。"
+ },
+ "p:list_mcp_resource_templates.server": {
+  "kind": "param",
+  "en": "Configured MCP server name.",
+  "zh": "已配置的 MCP 服务器名称。"
+ },
+ "p:list_mcp_resource_templates.cursor": {
+  "kind": "param",
+  "en": "Continuation cursor returned by this server.",
+  "zh": "此服务器返回的续页游标。"
+ },
+ "p:present.files": {
+  "kind": "param",
+  "en": "Usually the 1-2 most important deliverables; at most 4 per call.",
+  "zh": "通常是 1-2 个最重要的交付物；每次调用最多 4 个。"
+ },
+ "p:present.files[].path": {
+  "kind": "param",
+  "en": "Path of an existing regular file. Relative paths use the Session working directory.",
+  "zh": "已存在的普通文件的路径。相对路径以会话工作目录为准。"
+ },
+ "p:present.files[].description": {
+  "kind": "param",
+  "en": "Brief description for the user.",
+  "zh": "给用户的简要说明。"
+ },
+ "p:read_mcp_resource.uri": {
+  "kind": "param",
+  "en": "Resource URI to read.",
+  "zh": "要读取的资源 URI。"
+ },
+ "p:schedule_create.prompt": {
+  "kind": "param",
+  "en": "Reminder content to present when the target becomes due.",
+  "zh": "到点时要呈现的提醒内容。"
+ },
+ "p:schedule_create.title": {
+  "kind": "param",
+  "en": "Concise task name in the user's language, at most 120 characters. Name only the core action and subject; keep essential target identifiers such as PR numbers and branch names. Do not include execution frequency (e.g. daily, hourly), scheduled dates/times, time zones, task status, or configuration and execution details (e.g. read-only mode, profile-tag filters), even when embedded in the requested or existing title. Do not append parenthetical notes. Put scheduling information in the timing parameters and execution instructions in prompt.",
+  "zh": "用用户语言写的简洁任务名，最多 120 个字符。只写核心动作与对象；保留 PR 编号、分支名等关键目标标识。不要包含执行频率（如 daily、hourly）、计划日期/时间、时区、任务状态，或配置与执行细节（如 read-only 模式、profile-tag 过滤），即使它们出现在所请求的或现有的标题里。不要追加括号说明。把定时信息放进时间参数，把执行指令放进 prompt。"
+ },
+ "p:schedule_create.after_seconds": {
+  "kind": "param",
+  "en": "Delay in whole seconds.",
+  "zh": "延迟，以整秒为单位。"
+ },
+ "p:schedule_create.every_seconds": {
+  "kind": "param",
+  "en": "Fixed-rate interval in whole seconds, at least 60, aligned to the creation time; changing it with schedule_update re-aligns it to the save time.",
+  "zh": "固定速率间隔，以整秒为单位，至少 60，按创建时间对齐；用 schedule_update 修改后，将按保存时间重新对齐。"
+ },
+ "p:schedule_create.daily": {
+  "kind": "param",
+  "en": "Every day at a local time.",
+  "zh": "每天在某个本地时间执行。"
+ },
+ "p:schedule_create.daily.time": {
+  "kind": "param",
+  "en": "HH:mm:ss with optional 1-3 fractional digits, for example 23:00:00.",
+  "zh": "HH:mm:ss，可选 1-3 位小数，例如 23:00:00。"
+ },
+ "p:schedule_create.daily.time_zone": {
+  "kind": "param",
+  "en": "UTC or IANA Area/Location, for example Asia/Shanghai.",
+  "zh": "UTC 或 IANA Area/Location，例如 Asia/Shanghai。"
+ },
+ "p:schedule_create.weekly": {
+  "kind": "param",
+  "en": "On the given weekdays at a local time.",
+  "zh": "在给定的工作日于某个本地时间执行。"
+ },
+ "p:schedule_create.weekly.time": {
+  "kind": "param",
+  "en": "HH:mm:ss with optional 1-3 fractional digits, for example 09:00:00.",
+  "zh": "HH:mm:ss，可选 1-3 位小数，例如 09:00:00。"
+ },
+ "p:schedule_create.weekly.weekdays": {
+  "kind": "param",
+  "en": "ISO weekdays, Monday 1 through Sunday 7, without repetitions.",
+  "zh": "ISO 工作日编号，周一为 1 到周日为 7，不可重复。"
+ },
+ "p:schedule_create.cron": {
+  "kind": "param",
+  "en": "Five-field Vixie cron expression in a time zone.",
+  "zh": "某个时区下的五字段 Vixie cron 表达式。"
+ },
+ "p:schedule_create.cron.expression": {
+  "kind": "param",
+  "en": "minute hour day-of-month month day-of-week, for example \"*/15 9-17 * * 1-5\". When both day fields are restricted, a date matches if either one matches.",
+  "zh": "minute hour day-of-month month day-of-week，例如 \"*/15 9-17 * * 1-5\"。当两个日期字段都受限时，日期只要匹配其中任意一个即算匹配。"
+ },
+ "p:schedule_create.at": {
+  "kind": "param",
+  "en": "Absolute target: an RFC 3339 date-time with offset, or a local date, time, and IANA time_zone.",
+  "zh": "绝对目标：带偏移量的 RFC 3339 日期时间，或本地日期、时间加 IANA time_zone。"
+ },
+ "p:schedule_delete.id": {
+  "kind": "param",
+  "en": "Exact schedule id.",
+  "zh": "精确的定时任务 id。"
+ },
+ "p:schedule_update.id": {
+  "kind": "param",
+  "en": "Schedule id returned by schedule_list.",
+  "zh": "由 schedule_list 返回的定时任务 id。"
+ },
+ "p:schedule_update.title": {
+  "kind": "param",
+  "en": "New task name; follow the schedule_create title rules.",
+  "zh": "新任务名；遵循 schedule_create 的标题规则。"
+ },
+ "p:schedule_update.prompt": {
+  "kind": "param",
+  "en": "New reminder content.",
+  "zh": "新的提醒内容。"
+ }
+}

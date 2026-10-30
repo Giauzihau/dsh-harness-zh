@@ -1,0 +1,51 @@
+{
+  "name": "dsh-harness-zh",
+  "version": "0.2.5",
+  "description": "把 DeepSeek Harness 的模型侧提示词（系统提示词、上下文、工具与参数描述）译为简体中文。适配 DSH 0.2.1-rc.5。",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "i18n",
+    "zh-cn",
+    "chinese"
+  ],
+  "license": "MIT",
+  "author": "Giauzihau",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Giauzihau/dsh-harness-zh.git"
+  },
+  "homepage": "https://github.com/Giauzihau/dsh-harness-zh#readme",
+  "bugs": {
+    "url": "https://github.com/Giauzihau/dsh-harness-zh/issues"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "dict",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "dsh": {
+    "manifestVersion": 1,
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "engines": {
+    "dsh": "^0.2.1-rc.5",
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}
