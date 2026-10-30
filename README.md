@@ -26,6 +26,11 @@ From a local checkout instead:
 dsh plugin --profile web add file:E:\path\to\dsh-harness-zh
 ```
 
+Notes:
+
+- The package ships ready-to-run JavaScript — no build step, no `prepare` script — so pnpm does not ask for build approval (plugins that ship TypeScript sources do need an `allowBuilds` entry in `<profile>\pnpm-workspace.yaml`).
+- The first install fetches the repository tarball, which can take a minute or two; if GitHub is unreachable, `git clone` it and install with `file:`.
+
 Restart Harness afterwards (reloading the web page is not enough for the host process). The plugin activates through `dsh.profile.bundles`, which the plugin manager updates automatically.
 
 Update or remove it with:
@@ -139,9 +144,11 @@ node --test        # 25 tests: dictionary lookup, templates, assembly translatio
 ```
 lib/index.js      host plugin: three stages, dictionary loading, diagnostics
 lib/translate.js  dictionary reading, lookup, schema walking
-dict/*.json       dictionaries
+dict/*.json       dictionaries (8 files)
 cordis.patch.yml  bundle patch that inserts harness-zh
-test/             node:test suites
+test/             node:test suites (not published)
+PUBLISH.zh.md     first release, updates, compatibility handling
+NOTICE            attribution for derived translations
 ```
 
 ## Acknowledgements

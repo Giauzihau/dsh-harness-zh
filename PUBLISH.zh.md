@@ -51,6 +51,25 @@ pnpm 会把 `github:` 规格解析成仓库的 tarball（按 `files` 打包）�
 dsh plugin --profile web add github:Giauzihau/dsh-harness-zh#v0.2.5
 ```
 
+### 直装路径实测（在本机 DSH 0.2.1-rc.5 上验证过）
+
+用上游 `github:zjl1989-li/dsh-harness-zh-cn` 做了一次真实安装，确认了三件事：
+
+1. `github:` 规格确实能走通：pnpm 从 GitHub 拉 tarball、按包内 `files` 落盘、
+   插件管理器把包名追加进 `dsh.profile.bundles`。上游带 npm 依赖，走了 npm
+   registry，耗时 2 分钟；本插件零依赖，只会慢在 GitHub 那一步。
+2. 安装后的兼容性闸门按 `engines.dsh` 判定：上游声明
+   `@deepseek-ai/dsh-system-prompt: ^0.1.0-rc.6`，当场被拒——
+   `installation rejected: Plugin dsh-harness-zh-cn@0.2.0 is incompatible with dsh 0.2.1-rc.5`，
+   并自动回滚 `package.json`、`pnpm-lock.yaml` 和 `node_modules`。这正是本插件写
+   `engines.dsh: "^0.2.1-rc.5"` 的原因。
+3. 只有带 `prepare` 脚本的 git 包才需要 `allowBuilds`：pnpm 会拦住 git 依赖的构建，
+   CLI 提示把 pnpm 打印的键加到 `<配置档>\pnpm-workspace.yaml`。本包不含构建脚本，
+   所以不需要这一步；若以后引入构建流程，记得同步文档。
+
+网络提示：`HEAD https://github.com/<owner>/<repo>` 可能先两次超时再成功，
+首次安装耐心等；GitHub 完全不可达时用 `file:` 安装克隆目录。
+
 ## 以后怎么发新版
 
 1. 改 `package.json` 的 `version`（例如 `0.2.6`），在 `CHANGELOG.md` 顶部加一节。

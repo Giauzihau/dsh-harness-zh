@@ -33,7 +33,9 @@
     "README.md",
     "README.zh.md",
     "LICENSE",
-    "NOTICE"
+    "NOTICE",
+    "CHANGELOG.md",
+    "PUBLISH.zh.md"
   ],
   "dsh": {
     "manifestVersion": 1,

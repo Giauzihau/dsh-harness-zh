@@ -26,6 +26,11 @@ dsh plugin --profile web add github:Giauzihau/dsh-harness-zh#v0.2.5
 dsh plugin --profile web add file:E:\path\to\dsh-harness-zh
 ```
 
+两点说明：
+
+- 包里是可直接运行的 JavaScript，没有构建步骤、也没有 `prepare` 脚本，所以 pnpm 不会要求你批准构建（发 TypeScript 源码的插件则需要往 `<配置档>\pnpm-workspace.yaml` 的 `allowBuilds` 里加一条）。
+- 首次安装要拉取仓库 tarball，网络慢时可能要一两分钟；如果连不上 GitHub，先 `git clone` 再用 `file:` 安装。
+
 装完重启 Harness（Web GUI 刷新页面不够，宿主进程要重启），插件会随 `dsh.profile.bundles` 自动激活。
 
 更新到默认分支最新版、或卸载：
