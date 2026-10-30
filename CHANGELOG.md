@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.7
+
+- `thinking` 指令加入一正一反两个中文示例，并明确「每段思考先用一句中文说明要做什么」，让模型有可模仿的句式，而不只是抽象要求。
+- 文档补充实测结论：指令只能改变模型行为，不能重写已生成的思维链；第三方 provider 的推理通道对系统提示词敏感度差异很大，换 provider 常比加强措辞更有效。
+- 测试 26 个全部通过。
+
 ## 0.2.6
 
 - `thinking` is now registered **twice**: the system prompt section (as before)
