@@ -7,10 +7,16 @@ class FakeSystemPrompt {
   constructor() {
     this.calls = 0
     this.sections = []
+    this.contexts = []
   }
 
   section(section) {
     this.sections.push(section)
+    return () => {}
+  }
+
+  context(context) {
+    this.contexts.push(context)
     return () => {}
   }
 
@@ -199,12 +205,13 @@ test('enabled: false leaves everything English', async () => {
 
   assert.equal(ctx.listeners.size, 0)
   assert.equal(ctx.systemPrompt.sections.length, 0, 'the thinking instruction is off too')
+  assert.equal(ctx.systemPrompt.contexts.length, 0)
   const message = frozenMessage('You are an AI agent powered by DeepSeek Harness.')
   ctx.sessions[0].append('user/message', message)
   assert.equal(ctx.sessions[0].events[0].data, message)
 })
 
-test('thinking: "zh" registers a reasoning-language section', () => {
+test('thinking: "zh" registers both a section and a runtime-context instruction', () => {
   const ctx = makeContext()
   apply(ctx, { thinking: 'zh' })
 
@@ -215,25 +222,35 @@ test('thinking: "zh" registers a reasoning-language section', () => {
   assert.equal(section.interpolate, false)
   assert.match(section.text, /简体中文/)
   assert.match(section.text, /thinking/)
+
+  assert.equal(ctx.systemPrompt.contexts.length, 1, 'also repeated in every runtime snapshot')
+  const [context] = ctx.systemPrompt.contexts
+  assert.equal(context.name, 'harness-zh:reasoning-language')
+  assert.equal(context.order, 900, 'rendered at the end of the snapshot')
+  assert.equal(context.interpolate, false)
+  assert.equal(context.text, section.text, 'both copies say the same thing')
 })
 
 test('thinking accepts true, "en" and a custom instruction', () => {
   const zh = makeContext()
   apply(zh, { thinking: true })
   assert.match(zh.systemPrompt.sections[0].text, /简体中文/)
+  assert.match(zh.systemPrompt.contexts[0].text, /简体中文/)
 
   const en = makeContext()
   apply(en, { thinking: 'en' })
-  assert.match(en.systemPrompt.sections[0].text, /private reasoning/)
+  assert.match(en.systemPrompt.sections[0].text, /reasoning/)
   assert.match(en.systemPrompt.sections[0].text, /Simplified Chinese/)
 
   const custom = makeContext()
   apply(custom, { thinking: '先想清楚再动手。' })
   assert.equal(custom.systemPrompt.sections[0].text, '先想清楚再动手。')
+  assert.equal(custom.systemPrompt.contexts[0].text, '先想清楚再动手。')
 })
 
 test('thinking: false registers nothing', () => {
   const ctx = makeContext()
   apply(ctx, {})
   assert.equal(ctx.systemPrompt.sections.length, 0)
+  assert.equal(ctx.systemPrompt.contexts.length, 0)
 })

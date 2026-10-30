@@ -70,9 +70,11 @@ What the GUI shows in the "思考" panel is **reasoning tokens the model generat
     thinking: zh   # same as true; 'en' asks for English; any other string is injected verbatim
 ```
 
-When enabled, the plugin registers one prompt section right after the persona prefix and before the tool policy blocks:
+When enabled, the plugin registers the same instruction **twice**: as a prompt section right after the persona prefix and before the tool policy blocks, and as a runtime-context entry (`order: 900`) rendered at the end of every step's snapshot — the last text the model reads before it acts:
 
-> 你的私有推理过程（thinking，即界面上“思考”面板里的内容）请始终使用简体中文。无论用户使用何种语言、无论阅读的材料是什么语言，推理都用简体中文；代码、标识符、路径、命令、配置键、引用原文和错误信息保持原样，不要翻译。最终答复的语言按用户的要求决定。
+> 【硬性要求】你的思考过程（thinking／推理／分析，即界面上「思考」面板里显示的全部内容）必须用简体中文写。无论用户使用什么语言、无论正在读的代码或文档是什么语言、无论报错是哪种语言，推理一律用简体中文，不得用英文句子思考。若发现自己已经开始用英文思考，立刻改用简体中文继续。只有代码、标识符、文件路径、命令、配置键、被引用的原文和报错原文保持原样，不翻译。最终答复用哪种语言，按用户的要求决定。
+
+A system-prompt-only copy is ignored by some models, and the further up the prompt it sits the more likely it is to be skipped; the runtime-context copy is re-rendered every step and lands at the tail, which in testing holds far better.
 
 Three things to know:
 
@@ -138,7 +140,7 @@ The nested community shape (`{ "<package>": { "<key>": { "en": "...", "zh": "...
 ## Development
 
 ```powershell
-node --test        # 25 tests: dictionary lookup, templates, assembly translation, prototype patches, frozen-message append semantics
+node --test        # 26 tests: dictionary lookup, templates, assembly translation, prototype patches, frozen-message append semantics
 ```
 
 ```

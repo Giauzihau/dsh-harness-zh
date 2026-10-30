@@ -1,4 +1,4 @@
-﻿import assert from 'node:assert/strict'
+import assert from 'node:assert/strict'
 import { mkdtempSync, writeFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
@@ -193,4 +193,29 @@ test('skips sections the plugin registered itself', () => {
   assert.equal(report.sections, 2, 'the plugin-owned section counts as translated, not as a miss')
   assert.equal(report.sectionsMiss.length, 0)
   assert.equal(assembly.sections[1].text, '你的私有推理过程请使用简体中文。')
+})
+
+test('skips the runtime-context copy of the reasoning instruction too', () => {
+  const directory = path.resolve('dict')
+  const { entries } = loadDictionaries(directory)
+  const { translate } = createTranslator(entries)
+  const assembly = {
+    sections: [],
+    contexts: [
+      { name: 'working-directory:current', text: 'Current working directory: "C:\\work".' },
+      { name: 'harness-zh:reasoning-language', text: '【硬性要求】你的思考过程必须用简体中文写。' },
+    ],
+    tools: [],
+    variables: {},
+  }
+  const report = translateAssembly(assembly, translate, {
+    sections: true,
+    contexts: true,
+    tools: true,
+    parameters: true,
+    skipContexts: ['harness-zh:reasoning-language'],
+  })
+  assert.equal(report.contexts, 2, 'both contexts count as translated')
+  assert.equal(report.contextsMiss.length, 0)
+  assert.equal(assembly.contexts[1].text, '【硬性要求】你的思考过程必须用简体中文写。')
 })

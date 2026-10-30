@@ -1,6 +1,6 @@
 {
   "name": "dsh-harness-zh",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "把 DeepSeek Harness 的模型侧提示词（系统提示词、上下文、工具与参数描述）译为简体中文。适配 DSH 0.2.1-rc.5。",
   "keywords": [
     "dsh",

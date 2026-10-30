@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.6
+
+- `thinking` is now registered **twice**: the system prompt section (as before)
+  and a runtime-context entry (`order: 900`) that is rendered at the end of
+  every step's snapshot — the last instruction the model reads before acting.
+- Stronger wording: a hard requirement, an explicit ban on English reasoning,
+  a mid-thought self-correction cue, and the same exemption list for code,
+  identifiers, paths, commands, config keys and error text.
+- `translateAssembly` accepts `skipContexts` so the plugin's own context is not
+  counted as a dictionary miss.
+- Tests: 25 → 26.
+
 ## 0.2.5
 
 - `thinking` option: registers a prompt section asking the model to reason in
