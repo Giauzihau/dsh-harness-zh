@@ -48,7 +48,7 @@ pnpm 会把 `github:` 规格解析成仓库的 tarball（按 `files` 打包）�
 锁定版本：
 
 ```powershell
-dsh plugin --profile web add github:Giauzihau/dsh-harness-zh#v0.2.5
+dsh plugin --profile web add github:Giauzihau/dsh-harness-zh#v0.2.6
 ```
 
 ### 直装路径实测（在本机 DSH 0.2.1-rc.5 上验证过）

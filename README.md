@@ -17,7 +17,7 @@ dsh plugin --profile web add github:Giauzihau/dsh-harness-zh
 需要可复现的版本时装到指定 tag 或 commit：
 
 ```powershell
-dsh plugin --profile web add github:Giauzihau/dsh-harness-zh#v0.2.5
+dsh plugin --profile web add github:Giauzihau/dsh-harness-zh#v0.2.6
 ```
 
 本地开发也可以直接指向仓库目录：
