@@ -12,7 +12,7 @@ lib/index.js        插件本体：三段式翻译 + thinking 段落
 lib/translate.js    词典读取、查表、schema 遍历
 dict/*.json         8 个词典文件（988 条词条 + 11 条模板）
 test/               node:test 用例（25 个，不随包发布）
-README.md/.zh.md    说明
+README.md           说明（简体中文）
 LICENSE  NOTICE     许可证与来源声明
 CHANGELOG.md        版本记录
 .github/workflows   推上去即跑的测试（Windows + Ubuntu，Node 20/22/24）

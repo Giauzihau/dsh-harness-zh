@@ -11,6 +11,7 @@
 - `translateAssembly` accepts `skipContexts` so the plugin's own context is not
   counted as a dictionary miss.
 - Tests: 25 → 26.
+- Docs: README.md is now the Simplified Chinese document; README.zh.md removed.
 
 ## 0.2.5
 
