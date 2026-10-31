@@ -48,7 +48,7 @@ pnpm 会把 `github:` 规格解析成仓库的 tarball（按 `files` 打包）�
 锁定版本：
 
 ```powershell
-dsh plugin --profile web add github:Giauzihau/dsh-harness-zh#v0.2.6
+dsh plugin --profile web add github:Giauzihau/dsh-harness-zh#v0.2.7
 ```
 
 ### 直装路径实测（在本机 DSH 0.2.1-rc.5 上验证过）
@@ -77,12 +77,12 @@ dsh plugin --profile web add github:Giauzihau/dsh-harness-zh#v0.2.6
 3. 提交并打 tag，push：
 
    ```powershell
-   git add -A; git commit -m "0.2.6: ..."; git tag v0.2.6; git push; git push --tags
+   git add -A; git commit -m "0.2.6: ..."; git tag v0.2.7; git push; git push --tags
    ```
 
 4. 在 GitHub 上基于这个 tag 发 Release（正文抄 CHANGELOG 那一段即可）。
 5. 已安装的用户执行同一条 `add github:...` 命令即可升级到默认分支；
-   要锁 tag 就在命令后加 `#v0.2.6`。
+   要锁 tag 就在命令后加 `#v0.2.7`。
 
 **必须改 version 的原因**：pnpm 会按版本缓存 `file:`/git 依赖，版本号不变时重装可能
 拿回旧字节。版本号是唯一的缓存键。
